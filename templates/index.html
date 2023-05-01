@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Image Color Palette Generator | Tyler Gargula Dev</title>
+		<meta charset="utf-8" />
+		<meta name="description" content="Easily generate a range of complementary colors from any image, simply upload an image and automatically generate a color palette based on the image colors.">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="static/assets/css/main.css" />
+	</head>
+	<body class="landing is-preload">
+
+	<!-- Header -->
+	<header id="header" class="alt">
+		<h1><a href="index.html">IMG Disect</a> by Tyler Gargula</h1>
+	</header>
+
+	<!-- Banner -->
+	<section id="banner">
+		<h2>Image Color Palette Generator</h2>
+		<p>Extract color codes from any photo, instantly.</p>
+		<form method="post" enctype="multipart/form-data" >
+			<ul class="actions special">
+				<li>{{ form.hidden_tag() }}</li>
+				<li>{{ form.photo(class="button custom-file-input") }}</li>
+				<li>{{ form.submit(class="button primary") }}</li>
+			</ul>
+		</form>
+	</section>
+
+	<!-- Main -->
+	<section id="main" class="container">
+
+		<section class="box special">
+			<header class="major">
+				<h2>Easily generate a range of
+					<br />complementary colors from any image.</h2>
+				<p>Simply upload your image and automatically generate a color palette based on the
+					colors found in the image.</p>
+
+			</header>
+			{% if file_url %}
+			<span class="image featured"><img src="{{ file_url }}" alt="Your newly generated image" /></span>
+
+		</section>
+
+		<section class="box special">
+			{{ plot|safe }}
+			{% endif %}
+		</section>
+
+
+		<!-- Color Codes -->
+		{% if file_url %}
+
+		<section class="box special features">
+			{% for color in colors %}
+
+
+			<div class="features-row">
+				<section>
+					<div class="color_box" style="background-color: {{ color[0] }}; width: 60%; height: 150px; margin: auto; border-radius: 10px;"></div>
+					<h3>{{ color[0] }}</h3>
+					<p>{{ color[2] }}% concentration</p>
+
+
+				</section>
+				<section>
+					<div class="color_box" style="background-color: {{ color[1] }}; width: 60%; height: 150px; margin: auto; border-radius: 10px;"></div>
+					<h3>{{ color[1] }}</h3>
+					<p>{{ color[3] }}% concentration</p>
+
+				</section>
+			</div>
+			{% endfor %}
+
+		</section>
+		{% endif %}
+
+
+		<!-- Footer -->
+		<footer id="footer">
+			<ul class="icons">
+				<li><a href="https://github.com/tylergargula" class="icon brands fa-github"><span class="label">Github</span></a></li>
+				<li><a href="https://www.linkedin.com/in/tylergargula/" class="icon brands fa-linkedin"><span class="label">Dribbble</span></a></li>
+			</ul>
+			<ul class="copyright">
+				<li>&copy; <a href="https://tylergargula.dev/">Tyler Gargula</a>. All rights reserved.</li>
+			</ul>
+		</footer>
+
+
+		<!-- Scripts -->
+			<script src="static/assets/js/jquery.min.js"></script>
+			<script src="static/assets/js/jquery.dropotron.min.js"></script>
+			<script src="static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="static/assets/js/browser.min.js"></script>
+			<script src="static/assets/js/breakpoints.min.js"></script>
+			<script src="static/assets/js/util.js"></script>
+			<script src="static/assets/js/main.js"></script>
+
+	</body>
+</html>
