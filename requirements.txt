@@ -10,7 +10,7 @@ extcolors==1.0.0
 Flask==2.2.5
 Flask-Uploads==0.2.1
 Flask-WTF==1.1.1
-fonttools==4.39.3
+fonttools==4.38.0
 importlib-metadata==6.6.0
 importlib-resources==5.12.0
 itsdangerous==2.1.2
