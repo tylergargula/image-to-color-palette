@@ -3,7 +3,7 @@ colorama==0.4.6
 colorgram.py==1.2.0
 colorlog==6.7.0
 colormap==1.0.4
-contourpy==1.0.7
+contourpy==1.0.6
 convcolors==2.2.0
 cycler==0.11.0
 easydev==0.12.1
