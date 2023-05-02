@@ -1,7 +1,8 @@
 import pandas as pd
 import extcolors
+import os
 from colormap import rgb2hex
-from flask import Flask, render_template, request, url_for, send_from_directory
+from flask import Flask, render_template, url_for, send_from_directory
 from flask_uploads import IMAGES, UploadSet, configure_uploads
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
@@ -9,9 +10,8 @@ from wtforms import SubmitField
 import plotly.graph_objs as go
 from plotly.offline import plot
 
-
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'sdsadiojJHT129813n21jndewSDAD'
+app.config['SECRET_KEY'] = os.environ['SECRET_KEY_CODE']
 app.config['UPLOADED_PHOTOS_DEST'] = 'uploads'
 
 photos = UploadSet('photos', IMAGES)
@@ -43,7 +43,7 @@ def homepage():
         color_list = color_to_df(colors_x)[0]
         percent_list = color_to_df(colors_x)[1]
         color_pairs = []
-        # donut_plot = create_plot(color_list, percent_list)
+        donut_plot = create_plot(color_list, percent_list)
         for color in range(0, len(color_list) - 1, 2):
             color_tuple = (color_list[color], color_list[color + 1], percent_list[color], percent_list[color + 1])
             color_pairs.append(color_tuple)
@@ -53,11 +53,9 @@ def homepage():
                                form=form,
                                file_url=base_img_url,
                                colors=color_pairs,
-                               # plot=donut_plot
+                               plot=donut_plot
                                )
     return render_template('index.html', form=form)
-
-
 
 
 def color_to_df(colors):
@@ -77,22 +75,22 @@ def color_to_df(colors):
     return df['c_code'], df['occurence']
 
 
-# def create_plot(color_labels, color_values):
-#     trace = go.Pie(labels=color_labels,
-#                    values=color_values,
-#                    marker=dict(colors=color_labels))
-#
-#     layout = go.Layout(title="Color Density")
-#     data = [trace]
-#
-#     plot_div = plot({
-#         'data': data,
-#         'layout': layout
-#     },
-#         output_type='div'
-#     )
-#
-#     return plot_div
+def create_plot(color_labels, color_values):
+    trace = go.Pie(labels=color_labels,
+                   values=color_values,
+                   marker=dict(colors=color_labels))
+
+    layout = go.Layout(title="Color Density")
+    data = [trace]
+
+    plot_div = plot({
+        'data': data,
+        'layout': layout
+    },
+        output_type='div'
+    )
+
+    return plot_div
 
 
 if __name__ == '__main__':
